@@ -127,7 +127,9 @@ favoriteRouter.route('/:campsiteId')
         if (favorites) {
             if (favorites.campsites.includes(req.params.campsiteId)) {
                 const campsiteIndex = favorites.campsites.indexOf(req.params.campsiteId)
-                favorites.campsites.splice(favorites.campsites.indexOf(campsiteIndex, 1))
+                if (campsiteIndex >= 0) {
+                    favorites.campsites.splice(favorites.campsites.indexOf(campsiteIndex, 1))
+                }
                 favorites.save()
                 .then(favorite => {
                     res.statusCode = 200
